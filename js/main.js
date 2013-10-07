@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     resources.onReady(function()
     {
-        Map.setBGImage(resources.get("img/_mask.png"), resources.get("img/bg.png") );
+        Map.setBGImage(resources.get("img/mask.png"), resources.get("img/bg.png") );
         main();
     });
     
@@ -48,7 +48,7 @@ $(document).ready(function(){
         for (var j=0; j< buf2.imgCount; j++)
             buf.push(buf2.img[j]);
     }
-    buf.push("img/_mask.png");
+    buf.push("img/mask.png");
     buf.push("img/man5.png");
     buf.push("img/bg.png");
     buf.push("img/grass2.png");
