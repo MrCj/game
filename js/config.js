@@ -1,3 +1,4 @@
+//My_Comment
 function getTime()
 {
     var d = new Date();
