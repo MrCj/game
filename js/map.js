@@ -15,6 +15,7 @@
     var windowSize = {};
     var map;
     var mapSize = {};
+	var flatMode = false;
 
     var drawCell = {};
 
@@ -260,7 +261,7 @@
     }
 
     function enableDrawBuildPrev(buildType, x, y)
-    {        
+    {
 		var bufImg = CONFIG.buildingImgInfo(buildType);
         this.drawBuildPrev.x = x + bufImg.drawX - CONFIG.cellSize.wDiv2;
         this.drawBuildPrev.y = y + bufImg.drawY + CONFIG.cellSize.hDiv2;
@@ -268,12 +269,12 @@
 		var cell = this.getCell(x, y);
         if ( this.checkBuilding(buildType, cell.x, cell.y) )
         {
-            this.drawBuildPrev.imgPosY = bufImg.zone[0].y;
-            this.drawBuildPrev.imgPosX = bufImg.zone[0].x;
+            this.drawBuildPrev.imgPosY = bufImg.zone[CONFIG.buildingImgZone.build_normal].y;
+            this.drawBuildPrev.imgPosX = bufImg.zone[CONFIG.buildingImgZone.build_normal].x;
         } else
         {
-            this.drawBuildPrev.imgPosY = bufImg.redZoneX;
-            this.drawBuildPrev.imgPosX = bufImg.redZoneY;
+            this.drawBuildPrev.imgPosY = bufImg.zone[CONFIG.buildingImgZone.build_bad].y;
+            this.drawBuildPrev.imgPosX = bufImg.zone[CONFIG.buildingImgZone.build_bad].x;
         }
         if (this.drawBuildPrev.draw && buildType == this.drawBuildPrev.type)
             return;
@@ -363,10 +364,22 @@
 	}
     
     function getBuildInfo(x, y)
-    {        
-		var cell = this.getCell(x, y).cell;
+    {
+		var cell = this.getCell(x, y).cell;		
+		if (this.flatMode)
+			if (!cell.bold)
+				return null;
         return cell.building;
     }
+	
+	function setFlatMode(flat)
+	{
+		if (this.flatMode == flat)
+			return;
+		for (var i=0, iLength=this.buildings.length; i<iLength; i++)
+			this.buildings[i].setFlatMode(flat);
+		this.flatMode = flat;
+	}
 
 	window.Map = {
         debug: debug,
@@ -377,6 +390,7 @@
         setWindowSize: setWindowSize,
         moveWindow: moveWindow,
         minimapClick: minimapClick,
+		setFlatMode: setFlatMode,
 
         getCell: getCell,
         drawMinimap: drawMinimap,
