@@ -54,7 +54,7 @@ var CONFIG = {
 		build_bad: 1,
 		flat: 2,
 		normal: 3
-	}
+	},
     
     buildingCellInfo: function(type) {
         if (type == this.buildingType.mill)
@@ -152,10 +152,12 @@ var CONFIG = {
                 drawX: -87, drawY: -174, // from bottom middle cell
                 spriteW: 175, spriteH: 174, // img size
                 redZoneX: 0, redZoneY: 0,
-                zone: [	{x:0, y:174, speed: 0, count: 1},		// x,y - start point of graphic zone; speed - delay (ms) between sprite; count of sprite
-						{x:0, y:0, speed: 0, count: 1},
-						{x:0, y:174, speed: 0, count: 1},
-					  	{x:0, y:174, speed: 50, count: 24}]
+                zone: {	// x,y - start point of graphic zone; speed - delay (ms) between sprite; count of sprite
+                    build_normal: {x:0, y:174, speed: 0, count: 1},		
+					build_bad: {x:0, y:0, speed: 0, count: 1},
+					flat: {x:0, y:0, speed: 0, count: 1},
+				    normal:	{x:0, y:174, speed: 50, count: 24}
+                }
             };
         if (type == this.buildingType.castle)
             return {
@@ -164,10 +166,12 @@ var CONFIG = {
                 drawX: -124, drawY: -428,
                 spriteW: 300, spriteH: 420,
                 redZoneX: 0, redZoneY: 0,
-                zone: [	{x:0, y:420, speed: 0, count: 1},
-						{x:0, y:0, speed: 0, count: 1},
-					  	{x:0, y:420, speed: 0, count: 1},
-					  	{x:0, y:420, speed: 0, count: 1}]
+                zone: {
+                    build_normal: {x:0, y:420, speed: 0, count: 1},
+					build_bad: {x:0, y:0, speed: 0, count: 1},
+					flat: {x:0, y:0, speed: 0, count: 1},
+					normal: {x:0, y:420, speed: 0, count: 1}
+                }
             };
         if (type == this.buildingType.house)
             return {
@@ -176,10 +180,12 @@ var CONFIG = {
                 drawX: -66, drawY: -208 ,
                 spriteW: 192, spriteH: 207,
                 redZoneX: 0, redZoneY: 0,
-                zone: [ {x:0, y:207, speed: 0, count: 1},
-					  	{x:0, y:0, speed: 0, count: 1},
-					  	{x:0, y:207, speed: 0, count: 1},
-					  	{x:0, y:207, speed: 0, count: 1}]
+                zone: {
+                    build_normal: {x:0, y:207, speed: 0, count: 1},
+					build_bad: {x:0, y:0, speed: 0, count: 1},
+					flat: {x:0, y:0, speed: 0, count: 1},
+					normal: {x:0, y:207, speed: 0, count: 1}
+                }
             };
         if (type == this.buildingType.forester)
             return {
@@ -188,10 +194,12 @@ var CONFIG = {
                 drawX: -55, drawY: -150,
                 spriteW: 161, spriteH: 160,
                 redZoneX: 0, redZoneY: 0,
-                zone: [	{x:0, y:160, speed: 0, count: 1},
-					  	{x:0, y:0, speed: 0, count: 1},
-					  	{x:0, y:160, speed: 0, count: 1},
-					  	{x:0, y:160, speed: 0, count: 1}]
+                zone: {
+                    build_normal: {x:0, y:160, speed: 0, count: 1},
+					build_bad: {x:0, y:0, speed: 0, count: 1},
+					flat: {x:0, y:0, speed: 0, count: 1},
+                    normal: {x:0, y:160, speed: 0, count: 1}
+                }
             };
     },
     

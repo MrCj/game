@@ -24,7 +24,8 @@ $(document).ready(function(){
     miniCanvas.height = 200;//WINDOW_SIZE.height;
     document.body.appendChild(miniCanvas);
 
-    document.body.addEventListener('keydown', onKeyPress, false);
+    document.body.addEventListener('keydown', onKeyDown, false);
+    document.body.addEventListener('keypress', onKeyPress, false);
     canvas.addEventListener('mouseup', onMouseUpFunc, false);
     canvas.addEventListener('mousemove', onMouseMove, false);
     miniCanvas.addEventListener('click', onMinimapClick, false);
@@ -60,7 +61,9 @@ $(document).ready(function(){
 });
 var dt;
 var lastTime = getTime();
+
 var buildPrev = {draw:false, type:-1};
+var flatMode = false;
 
 function main()
 {
@@ -76,7 +79,7 @@ function main()
     requestAnimFrame(main);
 }
 
-function onKeyPress(e) // move map
+function onKeyDown(e) // move map
 {
     var code = (e.keyCode ? e.keyCode : e.which);
     if(code == 37) { //left arrow
@@ -126,6 +129,15 @@ function blockClick(type)
 {
     buildPrev.draw = true;
     buildPrev.type = type;        
+}
+
+function onKeyPress(e)
+{
+    if (e.charCode == 32) //пробіл
+    {
+        flatMode = !flatMode;
+        Map.setFlatMode(flatMode);
+    }
 }
 
 function createMenu()

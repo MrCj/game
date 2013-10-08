@@ -269,12 +269,12 @@
 		var cell = this.getCell(x, y);
         if ( this.checkBuilding(buildType, cell.x, cell.y) )
         {
-            this.drawBuildPrev.imgPosY = bufImg.zone[CONFIG.buildingImgZone.build_normal].y;
-            this.drawBuildPrev.imgPosX = bufImg.zone[CONFIG.buildingImgZone.build_normal].x;
+            this.drawBuildPrev.imgPosY = bufImg.zone.build_normal.y;
+            this.drawBuildPrev.imgPosX = bufImg.zone.build_normal.x;
         } else
         {
-            this.drawBuildPrev.imgPosY = bufImg.zone[CONFIG.buildingImgZone.build_bad].y;
-            this.drawBuildPrev.imgPosX = bufImg.zone[CONFIG.buildingImgZone.build_bad].x;
+            this.drawBuildPrev.imgPosY = bufImg.zone.build_bad.y;
+            this.drawBuildPrev.imgPosX = bufImg.zone.build_bad.x;
         }
         if (this.drawBuildPrev.draw && buildType == this.drawBuildPrev.type)
             return;
