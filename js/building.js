@@ -10,21 +10,29 @@ var Building = function (buildingType, imgPos, cellX, cellY, x, y)
         this.imgData.drawY += y;
     this.img = resources.get( this.imgData.img[imgPos] );
     
-    this.setZone = function(newZone)
-    {
-        this.buildingZone = this.imgData.zone[newZone];
-        this.spriteFrame.y = this.buildingZone.y;
-        this.spriteFrame.x = this.buildingZone.x;
-        this.spriteFrame.pos = 0;
-    }
+	this.setFlatMode = function(flat)
+	{
+		if (flat)
+			this.buildingZone = this.imgData.zone.flat;
+		else
+			this.buildingZone = this.imgData.zone.normal;
+		this.spriteFrame.y = this.buildingZone.y;
+		this.spriteFrame.x = this.buildingZone.x;
+		this.spriteFrame.pos = 0;
+	}
     
-    this.buildingZone = this.imgData.zone[0];
+    this.buildingZone = this.imgData.zone.normal;
     this.time = 0;
     this.spriteFrame = {pos: 0, x: this.buildingZone.x, y: this.buildingZone.y};
     
     this.recalc = function(dt)
     {   
         this.time += dt;
+        if (this.buildingZone.count < 2)
+        {
+            this.time = 0;
+            return;
+        }
         if (this.time >= this.buildingZone.speed)
         {
             this.time -= this.buildingZone.speed;
