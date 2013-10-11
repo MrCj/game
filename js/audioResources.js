@@ -12,29 +12,31 @@
 		codec = "." + codec;
 		resCount = urlOrArr.length;
 		for (var i in urlOrArr)
-			_load(urlOrArr[i]+codec);
+			_load(urlOrArr[i], codec);
 	}
 	
 	function getSupport(){
-		return !this.audio.canPlayType ? false :
-			this.audio.canPlayType('audio/ogg;')  ? 'ogg' :
-			this.audio.canPlayType('audio/mpeg;') ? 'mp3' : false;
+		var bufAudio = new Audio;
+		return !bufAudio.canPlayType ? false :
+			bufAudio.canPlayType('audio/ogg;')  ? 'ogg' :
+			bufAudio.canPlayType('audio/mpeg;') ? 'mp3' : false;
 	}
 	
-	function _load(url){
+	function _load(url, type){
 		if(resourceCache[url])
             return;
 		var audio = new Audio;
-		audio.oncanplaythrough = function() {
+		
+		audio.addEventListener('canplaythrough', function() {
 			resourceCache[url] = audio;
 			readyResCount++;
 			if (readyResCount == resCount)
 				readyCallback();
-		}
-        resourceCache[url] = false;
-        audio.src = url;
-		audio.ended = finishedPlaying;
-		audio.load();	
+		}, false);
+        resourceCache[url] = audio;
+        audio.src = url + type;
+		audio.addEventListener('ended', finishedPlaying, false);
+		//audio.load();	
 	}
 	
 	function finishedPlaying(){
@@ -49,7 +51,7 @@
 		playQueue.push( cloneAudio(name) );
 		var e = playQueue[ playQueue.length-1 ];
 		// firefox 3.5 starting audio bug
-		e.currentTime = 0.025;
+		//e.currentTime = 0.025;
 		e.play();
 	}
 	
@@ -63,7 +65,7 @@
 		}
 		audioClone.load();
 		return audioClone;
-	},
+	}
 	
 	window.AudioResources = {
         load: load,
